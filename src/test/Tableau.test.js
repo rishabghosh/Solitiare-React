@@ -15,11 +15,10 @@ const findByTestAttribute = function(wrapper, value) {
   return wrapper.find(`[data-test='${value}']`);
 };
 
+/* ======= Tests ======== */
+
 test("renders Tableau without crashing", () => {
   const wrapper = setUp();
-  const TableauComponent = findByTestAttribute(
-    wrapper,
-    "bottom-container-display"
-  );
+  const TableauComponent = findByTestAttribute(wrapper, "component-tableau");
   expect(TableauComponent.length).toBe(1);
 });

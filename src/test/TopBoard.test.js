@@ -15,20 +15,22 @@ const findByTestAttribute = function(wrapper, value) {
   return wrapper.find(`[data-test='${value}']`);
 };
 
+/* ========== Tests =========== */
+
 test("renders top container", () => {
   const wrapper = setUp();
-  const topDisplay = findByTestAttribute(wrapper, "component-top-board");
-  expect(topDisplay.length).toBe(1);
+  const topBoardComponent = findByTestAttribute(wrapper, "component-top-board");
+  expect(topBoardComponent.length).toBe(1);
 });
 
 test("renders app component without crashing", () => {
   const wrapper = setUp();
-  const topLeftDisplay = findByTestAttribute(wrapper, "display-left");
-  expect(topLeftDisplay.length).toBe(1);
+  const DisplayLeft = findByTestAttribute(wrapper, "display-left");
+  expect(DisplayLeft.length).toBe(1);
 });
 
 test("renders app component without crashing", () => {
   const wrapper = setUp();
-  const topRightDisplay = findByTestAttribute(wrapper, "display-right");
-  expect(topRightDisplay.length).toBe(1);
+  const displayRight = findByTestAttribute(wrapper, "display-right");
+  expect(displayRight.length).toBe(1);
 });
