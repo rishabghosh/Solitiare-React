@@ -31,3 +31,41 @@
     transform: rotate(360deg);
   }
 }
+
+main {
+  height: 100vh;
+  background: #62825b;
+}
+
+.top-container {
+  height: 30%;
+  border: 2px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.bottom-container {
+  height: 70%;
+  border: 2px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.top-left-container {
+  width: 49%;
+  height: 99%;
+  border: 2px solid gray;
+  background: #282c34;
+}
+
+.top-right-container {
+  width: 49%;
+  height: 99%;
+  border: 2px solid gray;
+  background: #282c34;
+
+}
