@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./App.css";
-import "./Pile.css";
-import Deck from "./model/deck";
+import "../styles/App.css";
+import "../styles/Pile.css";
+import Deck from "../models/deck";
 
 const PileBase = function() {
   return <div className="PileBase" />;
