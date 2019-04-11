@@ -17,12 +17,14 @@ const getPileBases = function(component) {
 
 const App = function() {
   return (
-    <main>
-      <div className="top-container">
-        <div className="top-left-container"></div>
-        <div className="top-right-container"></div>
+    <main data-test="component-app">
+      <div data-test="top-container-display" className="top-container">
+        <div data-test="top-left-display" className="top-left-container" />
+        <div data-test="top-right-display" className="top-right-container" />
       </div>
-      <div className="bottom-container">{getPileBases(<PileBase />)}</div>
+      <div data-test="bottom-container-display" className="bottom-container">
+        {getPileBases(<PileBase />)}
+      </div>
     </main>
   );
 };
