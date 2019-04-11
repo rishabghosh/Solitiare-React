@@ -1,10 +1,13 @@
 import React from "react";
 import PileBase from "./PileBase";
 
+//should be in rules.js?
+const PILEBASE_COUNT = 7;
+
 const getPileBases = function() {
   const pileBases = [];
-  for (let count = 0; count < 7; count++) {
-    pileBases.push(<PileBase key={count} />);
+  for (let count = 0; count < PILEBASE_COUNT; count++) {
+    pileBases.push(<PileBase data-test="component-pile-base" key={count} />);
   }
   return pileBases;
 };
@@ -12,7 +15,7 @@ const getPileBases = function() {
 const Tableau = function() {
   return (
     <div data-test="component-tableau" className="bottom-container">
-      {getPileBases(<PileBase />)}
+      {getPileBases()}
     </div>
   );
 };

@@ -19,6 +19,12 @@ const findByTestAttribute = function(wrapper, value) {
 
 test("renders Tableau without crashing", () => {
   const wrapper = setUp();
-  const TableauComponent = findByTestAttribute(wrapper, "component-tableau");
-  expect(TableauComponent.length).toBe(1);
+  const tableauComponent = findByTestAttribute(wrapper, "component-tableau");
+  expect(tableauComponent.length).toBe(1);
+});
+
+test("tableau should have 7 pile bases", () => {
+  const wrapper = setUp();
+  const pileBaseComponent = findByTestAttribute(wrapper, "component-pile-base");
+  expect(pileBaseComponent.length).toBe(7);
 });
