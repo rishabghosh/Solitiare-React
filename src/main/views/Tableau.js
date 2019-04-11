@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import PileBase from "./PileBase";
 
 const getPileBases = function(component) {

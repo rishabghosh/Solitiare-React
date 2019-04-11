@@ -21,26 +21,4 @@ test("renders app component without crashing", () => {
   expect(appComponent.length).toBe(1);
 });
 
-test("renders top container", () => {
-  const wrapper = setUp();
-  const topDisplay = findByTestAttribute(wrapper, "top-container-display");
-  expect(topDisplay.length).toBe(1);
-});
 
-test("renders app component without crashing", () => {
-  const wrapper = setUp();
-  const topLeftDisplay = findByTestAttribute(wrapper, "top-left-display");
-  expect(topLeftDisplay.length).toBe(1);
-});
-
-test("renders app component without crashing", () => {
-  const wrapper = setUp();
-  const topRightDisplay = findByTestAttribute(wrapper, "top-right-display");
-  expect(topRightDisplay.length).toBe(1);
-});
-
-// test("renders app component without crashing", () => {
-//   const wrapper = setUp();
-//   const bottomDisplay = findByTestAttribute(wrapper, "bottom-container-display");
-//   expect(bottomDisplay.length).toBe(1);
-// });
