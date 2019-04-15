@@ -6,8 +6,10 @@ const PILEBASE_COUNT = 7;
 
 const getPileBases = function() {
   const pileBases = [];
-  for (let count = 0; count < PILEBASE_COUNT; count++) {
-    pileBases.push(<PileBase data-test="component-pile-base" key={count} />);
+  for (let count = 1; count <= PILEBASE_COUNT; count++) {
+    pileBases.push(
+      <PileBase data-test="component-pile-base" count={count} key={count} />
+    );
   }
   return pileBases;
 };

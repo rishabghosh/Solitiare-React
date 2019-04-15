@@ -1,0 +1,16 @@
+.card-main {
+  height: 80px;
+  width: 65px;
+  background: whitesmoke;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.card-body {
+  height: 70px;
+  width: 56px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
