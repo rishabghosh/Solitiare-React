@@ -1,4 +1,4 @@
-const cards  = [
+const cardData = [
   {
     suit: "spade",
     rank: "A",
@@ -313,4 +313,4 @@ const cards  = [
   }
 ];
 
-export default cards;
+export default cardData;

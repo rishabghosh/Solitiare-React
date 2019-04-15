@@ -1,5 +1,5 @@
 import Card from "./card";
-import { SUITS, RANKS } from "./rules";
+import cardData from "../data/cardData";
 
 class Deck {
   constructor(cards) {
@@ -7,12 +7,9 @@ class Deck {
   }
 
   static create() {
-    const suits = Object.keys(SUITS);
-    const ranks = Object.keys(RANKS);
-    const cards = [];
-    suits.forEach(suit => {
-      ranks.forEach(rank => cards.push(new Card(suit, rank)));
-    });
+    const cards = cardData.map(
+      card => new Card(card.suit, card.rank, card.color, card.unicode)
+    );
     return new Deck(cards);
   }
 
@@ -21,5 +18,5 @@ class Deck {
     return JSON.parse(JSON.stringify(this.cards));
   }
 }
-
-export default Deck;
+const deck = Deck.create();
+export default deck;

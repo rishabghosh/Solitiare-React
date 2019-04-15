@@ -2,15 +2,18 @@
   height: 80px;
   width: 65px;
   background: whitesmoke;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  border: 1px solid black;
 }
 
 .card-body {
   height: 70px;
   width: 56px;
-  border: 1px solid black;
   border-radius: 3px;
+  font-size: 80px;
+  margin-top: -41px;
+  text-align: center;
 }
