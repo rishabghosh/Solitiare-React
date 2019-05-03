@@ -1,13 +1,18 @@
 class Card {
-  constructor(suit, rank, color, unicode) {
+  constructor(suit, rank, color, unicode, id) {
     this.suite = suit;
     this.rank = rank;
     this.color = color;
     this.unicode = unicode;
+    this.id = id;
   }
 
   getSuit() {
     return this.suite;
+  }
+
+  getId() {
+    return this.id;
   }
 
   getRank() {
@@ -25,7 +30,6 @@ class Card {
   canPlayOnTopOf(card) {
     return card.color !== this.color && +this.rank + 1 === +card.rank;
   }
-
 }
 
 export default Card;

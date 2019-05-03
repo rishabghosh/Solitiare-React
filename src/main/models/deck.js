@@ -8,15 +8,26 @@ class Deck {
 
   static create() {
     const cards = cardData.map(
-      card => new Card(card.suit, card.rank, card.color, card.unicode)
+      (card, id) => new Card(card.suit, card.rank, card.color, card.unicode, id)
     );
     return new Deck(cards);
   }
 
   getCards() {
-    /** cloneing cards */
-    return JSON.parse(JSON.stringify(this.cards));
+    return this.cards;
   }
+
+  getShuffledCards(shuffler) {
+    shuffler.shuffle();
+  }
+
+  getCardById(id) {
+    const requiredCard = this.cards.filter(card => card.id === id);
+    return requiredCard[0];
+  }
+
+  getWastePile() {}
 }
+
 const deck = Deck.create();
 export default deck;
