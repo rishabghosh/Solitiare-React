@@ -23,7 +23,6 @@ const Card = function(props) {
    */
   const handleDrag = event => {
     event.dataTransfer.setData("id", event.target.id);
-    console.log("dragging", event.target.id, "***");
   };
 
   const allowDrop = function(event) {
