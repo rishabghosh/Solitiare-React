@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "../styles/Card.css";
 import deck from "../models/deck";
 import Card from "./Card";
+import "../styles/Card.css";
+import "../styles/Pile.css";
 
 const Stack = function() {
   const stackView = deck.getStack();
-  console.log(stackView);
 
   const [stackIndex, setStackIndex] = useState(0);
   const [viewStackCard, setViewStackCard] = useState(stackView[stackIndex]);
@@ -28,9 +28,7 @@ const Stack = function() {
     isTopCard: true
   };
 
-  const style = {
-    display: visibility ? "block" : "none"
-  };
+  const style = { display: visibility ? "block" : "none" };
 
   return (
     <div className="stack">
@@ -45,13 +43,22 @@ const Stack = function() {
   );
 };
 
+const Foundation = function() {
+  return <div className="base" />;
+};
+
 const TopBoard = function() {
   return (
     <div data-test="component-top-board" className="top-container">
       <div data-test="display-left" className="top-left-container">
         <Stack />
       </div>
-      <div data-test="display-right" className="top-right-container" />
+      <div data-test="display-right" className="top-right-container">
+        <Foundation />
+        <Foundation />
+        <Foundation />
+        <Foundation />
+      </div>
     </div>
   );
 };

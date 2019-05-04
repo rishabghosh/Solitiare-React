@@ -65,4 +65,7 @@ main {
   width: 49%;
   height: 99%;
   border: 2px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
