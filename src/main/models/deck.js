@@ -1,24 +1,23 @@
 import Card from "./card";
+import _ from "lodash";
 import cardData from "../data/cardData";
 
 class Deck {
-  constructor(cards) {
+  constructor(cards, wastePile, stack) {
     this.cards = cards;
+    this.wastePile = wastePile;
+    this.stack = stack;
   }
 
-  static create() {
+  static create(shuffle) {
     const cards = cardData.map(
       (card, id) => new Card(card.suit, card.rank, card.color, card.unicode, id)
     );
-    return new Deck(cards);
-  }
 
-  getCards() {
-    return this.cards;
-  }
-
-  getShuffledCards(shuffler) {
-    shuffler.shuffle();
+    const shuffledCards = shuffle(cards);
+    const wastePile = shuffledCards.slice(0, 28);
+    const stack = shuffledCards.slice(28);
+    return new Deck(cards, wastePile, stack);
   }
 
   getCardById(id) {
@@ -26,8 +25,15 @@ class Deck {
     return requiredCard[0];
   }
 
-  getWastePile() {}
+  getWastePile() {
+    return this.wastePile;
+  }
+
+  getStack() {
+    return this.stack;
+  }
 }
 
-const deck = Deck.create();
+const deck = Deck.create(_.shuffle);
+
 export default deck;

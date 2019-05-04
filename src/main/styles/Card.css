@@ -25,3 +25,7 @@
 .overlapping {
   margin-top: -50px;
 }
+
+.stack {
+  display: flex
+}
