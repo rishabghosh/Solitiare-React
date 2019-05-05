@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import Card from "./Card";
+import React from "react";
+import CardView from "./CardView";
 import "../styles/Pile.css";
-import tableau from "../models/tableau";
 
 /**
  * it takes a card count and returns a array of Card component
@@ -19,27 +18,27 @@ const getCards = function(pile) {
     const isTopCard = index === cardCount;
     const cardInfo = pile[index];
     const cardProps = { ...cardInfo, overlap, isTopCard };
-    cards.push(<Card {...cardProps} />);
+    cards.push(<CardView {...cardProps} />);
   }
   return cards;
 };
 
-const Base = function() {
+const BaseView = function() {
   return <div className="base" />;
 };
 
-const Pile = function(props) {
+const PileView = function(props) {
   return <div className="pile">{getCards(props.pile)}</div>;
 };
 
-const PileBase = function(props) {
+const PileBaseView = function(props) {
   const id = "pile" + props.count;
   return (
     <div className="pile-base" id={id}>
-      <Base />
-      <Pile {...props} />
+      <BaseView />
+      <PileView {...props} />
     </div>
   );
 };
 
-export default PileBase;
+export default PileBaseView;

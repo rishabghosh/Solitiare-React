@@ -1,12 +1,12 @@
 import React from "react";
-import App from "../main/views/App";
+import AppView from "../main/components/AppView";
 import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setUp = function(props = {}, state = null) {
-  const wrapper = shallow(<App {...props} />);
+  const wrapper = shallow(<AppView {...props} />);
   if (state) wrapper.setState(state);
   return wrapper;
 };

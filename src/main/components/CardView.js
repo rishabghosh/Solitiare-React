@@ -3,7 +3,7 @@ import "../styles/Card.css";
 
 const CARD_BACK_UNICODE = "\u{1F0A0}";
 
-const Card = function(props) {
+const CardView = function(props) {
   let className = "card-main";
 
   /** remove props.unicode from this line
@@ -51,4 +51,4 @@ const Card = function(props) {
   );
 };
 
-export default Card;
+export default CardView;

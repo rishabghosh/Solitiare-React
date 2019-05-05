@@ -1,12 +1,12 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
-import TopBoard from "../main/views/TopBoard";
+import TopBoardView from "../main/components/TopBoardView ";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setUp = function(props = {}, state = null) {
-  const wrapper = shallow(<TopBoard {...props} />);
+  const wrapper = shallow(<TopBoardView {...props} />);
   if (state) wrapper.setState(state);
   return wrapper;
 };

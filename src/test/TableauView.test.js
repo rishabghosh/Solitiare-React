@@ -1,12 +1,12 @@
 import React from "react";
-import Tableau from "../main/views/Tableau";
+import TableauView from "../main/components/TableauView";
 import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setUp = function(props = {}, state = null) {
-  const wrapper = shallow(<Tableau {...props} />);
+  const wrapper = shallow(<TableauView {...props} />);
   if (state) wrapper.setState(state);
   return wrapper;
 };

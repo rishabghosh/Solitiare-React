@@ -1,5 +1,5 @@
 import React from "react";
-import PileBase from "./PileBase";
+import PileBaseView from "./PileBaseView";
 import Tableau from "../models/tableau";
 import deck from "../models/deck";
 
@@ -13,7 +13,7 @@ const TableauView = function() {
       count: index + 1,
       pile
     };
-    return <PileBase {...pileBaseProps} />;
+    return <PileBaseView {...pileBaseProps} />;
   });
 
   return (

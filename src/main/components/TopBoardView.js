@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import deck from "../models/deck";
-import Card from "./Card";
+import CardView from "./CardView";
 import "../styles/Card.css";
 import "../styles/Pile.css";
 import dragAndDrop from "../viewUtils/dnd";
 
-const Stack = function() {
+const StackView = function() {
   const stackView = deck.getStack();
 
   const [stackIndex, setStackIndex] = useState(0);
@@ -34,35 +34,35 @@ const Stack = function() {
   return (
     <div className="stack">
       <div onClick={handleCardChange}>
-        <Card />
+        <CardView />
       </div>
 
       <div style={style}>
-        <Card {...cardProps} />
+        <CardView {...cardProps} />
       </div>
     </div>
   );
 };
 
-const Foundation = function() {
+const FoundationView = function() {
   return <div className="base" />;
 };
 
-const TopBoard = function() {
+const TopBoardView = function() {
   dragAndDrop();
   return (
     <div data-test="component-top-board" className="top-container">
       <div data-test="display-left" className="top-left-container">
-        <Stack />
+        <StackView />
       </div>
       <div data-test="display-right" className="top-right-container">
-        <Foundation />
-        <Foundation />
-        <Foundation />
-        <Foundation />
+        <FoundationView />
+        <FoundationView />
+        <FoundationView />
+        <FoundationView />
       </div>
     </div>
   );
 };
 
-export default TopBoard;
+export default TopBoardView;
