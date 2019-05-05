@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import PileBaseView from "./PileBaseView";
-import Tableau from "../models/tableau";
-import deck from "../models/deck";
+import tableau from "../models/tableau";
 
-const TableauView = function() {
-  const tableau = new Tableau(deck.getWastePile());
-  const pilebases = tableau.getPiles();
+const AllPilesView = function(props) {
+  const pileViews = [];
 
-  const pileBaseView = pilebases.map((pile, index) => {
+  for (let index = 0; index < props.pilebases.length; index++) {
+    const pile = props.pilebases[index];
+
     const pileBaseProps = {
       "data-test": "component-pile-base",
+      dragDrop: props.dragDrop,
       count: index + 1,
       pile
     };
-    return <PileBaseView {...pileBaseProps} />;
-  });
+    pileViews.push(<PileBaseView {...pileBaseProps} />);
+  }
+
+  return pileViews;
+};
+
+const TableauView = function() {
+  const [pilebases, setPilebases] = useState(tableau.getPiles());
+
+  const dragStart = event => {
+    event.dataTransfer.setData("id", event.target.id);
+  };
+
+  const dragOver = function(event) {
+    event.preventDefault();
+  };
+
+  const dragDrop = function(targetPileId, event) {
+    const cardId = event.dataTransfer.getData("id");
+    tableau.moveCard(+cardId, targetPileId);
+    setPilebases(tableau.getPiles());
+  };
 
   return (
-    <div data-test="component-tableau" className="bottom-container">
-      {pileBaseView}
+    <div
+      data-test="component-tableau"
+      className="bottom-container"
+      onDragStart={dragStart}
+      onDragOver={dragOver}
+    >
+      <AllPilesView dragDrop={dragDrop} pilebases={pilebases} />
     </div>
   );
 };

@@ -25,25 +25,11 @@ const CardView = function(props) {
    * @param1 - format - A DOMString representing the type of the drag data to add to the drag object.
    * @param2 - data - A DOMString representing the data to add to the drag object.
    */
-  
-  const dragStart = event => {
-    event.dataTransfer.setData("id", event.target.id);
-  };
-
-  const dragOver = function(event) {
-    event.preventDefault();
-  };
 
   const style = { color: props.color };
 
   return (
-    <div
-      className={className}
-      draggable="true"
-      onDragStart={dragStart}
-      onDragOver={dragOver}
-      id={props.id}
-    >
+    <div className={className} draggable="true" id={props.id}>
       <div className="card-body" style={style}>
         {unicode}
       </div>
