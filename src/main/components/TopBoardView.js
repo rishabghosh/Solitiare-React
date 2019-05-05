@@ -43,8 +43,21 @@ const StackView = function() {
   );
 };
 
-const FoundationView = function() {
+const BaseView = function() {
   return <div className="base" />;
+};
+
+const OpenStackView = function(props) {
+  return <div className="open-stack">{props.cards}</div>;
+};
+
+const FoundationView = function(props) {
+  return (
+    <div>
+      <BaseView />
+      <OpenStackView {...props} />
+    </div>
+  );
 };
 
 const TopBoardView = function() {

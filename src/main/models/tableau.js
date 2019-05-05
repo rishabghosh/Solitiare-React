@@ -35,10 +35,14 @@ class Tableau {
     return this.pileCards;
   }
 
-  moveCard(cardId, destinationPileNumber) {
+  addCard(card, destinationPileNumber) {
+    const destinationPile = this.piles[destinationPileNumber];
+    destinationPile.push(card);
+  }
+
+  removeCard(cardId) {
     let removedCard;
 
-    //remove card from source pile
     for (let index = 0; index < this.piles.length; index++) {
       const pile = this.piles[index];
       const card = pile.find(card => card.id === cardId);
@@ -49,13 +53,12 @@ class Tableau {
         break;
       }
     }
+    return removedCard;
+  }
 
-    //add the removed card to destination pile
-    const destinationPile = this.piles[destinationPileNumber];
-    destinationPile.push(removedCard);
-
-    //return both the source pile and the destination pile
-    // return destinationPile;
+  moveCard(cardId, destinationPileNumber) {
+    const removedCard = this.removeCard(cardId);
+    this.addCard(removedCard, destinationPileNumber);
   }
 }
 
