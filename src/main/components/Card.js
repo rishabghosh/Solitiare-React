@@ -21,12 +21,19 @@ const Card = function(props) {
    * @param1 - format - A DOMString representing the type of the drag data to add to the drag object.
    * @param2 - data - A DOMString representing the data to add to the drag object.
    */
-  const handleDrag = event => {
+  const dragStart = event => {
     event.dataTransfer.setData("id", event.target.id);
+    event.dataTransfer.setData("card-props", JSON.stringify({ ...props }));
   };
 
-  const allowDrop = function(event) {
+  const dragOver = function(event) {
     event.preventDefault();
+  };
+
+  const dragDrop = function(event) {
+    const data = event.dataTransfer.getData("id");
+    console.log(data);
+    console.log(event.target.id);
   };
 
   const style = { color: props.color };
@@ -35,9 +42,9 @@ const Card = function(props) {
     <div
       className={className}
       draggable="true"
-      onDragStart={handleDrag}
-      onDragOver={allowDrop}
-      onDrop={props.handleDrop}
+      onDragStart={dragStart}
+      onDragOver={dragOver}
+      onDrop={dragDrop}
       id={props.id}
     >
       <div className="card-body" style={style}>

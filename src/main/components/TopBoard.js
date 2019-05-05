@@ -3,6 +3,7 @@ import deck from "../models/deck";
 import Card from "./Card";
 import "../styles/Card.css";
 import "../styles/Pile.css";
+import dragAndDrop from "../viewUtils/dnd";
 
 const Stack = function() {
   const stackView = deck.getStack();
@@ -48,6 +49,7 @@ const Foundation = function() {
 };
 
 const TopBoard = function() {
+  dragAndDrop();
   return (
     <div data-test="component-top-board" className="top-container">
       <div data-test="display-left" className="top-left-container">

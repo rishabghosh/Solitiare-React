@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card";
 import "../styles/Pile.css";
 
@@ -20,7 +20,7 @@ const getCards = function({ wastePile, indexOfWastePile, cardCount }) {
       overlap,
       isTopCard
     };
-    
+
     cards.push(<Card {...cardProps} />);
     indexOfWastePile++;
   }
@@ -37,12 +37,26 @@ const Pile = function(props) {
     indexOfWastePile: props.indexOfWastePile,
     cardCount: props.count
   };
-  return <div className="pile">{getCards(getCardsProps)}</div>;
+  const [cards, setCards] = useState(getCards(getCardsProps));
+
+  const dragDrop = function(event) {
+    const cardPropsData = JSON.parse(event.dataTransfer.getData("card-props"));
+    const newCards = [...cards];
+    newCards.push(<Card {...cardPropsData} overlap={true} />);
+    setCards(newCards);
+  };
+
+  return (
+    <div className="pile" onDrop={dragDrop}>
+      {cards}
+    </div>
+  );
 };
 
 const PileBase = function(props) {
+  const id = "Pile" + props.count;
   return (
-    <div className="pile-base">
+    <div className="pile-base" id={id}>
       <Base />
       <Pile {...props} />
     </div>
