@@ -37,20 +37,25 @@ class Tableau {
 
   moveCard(cardId, destinationPileNumber) {
     let removedCard;
+
     //remove card from source pile
-    this.piles.forEach((pile, index) => {
-      const isFound = pile.find(card => card.id === cardId);
-      if (isFound) {
-        removedCard = pile.splice(index, 1)[0];
+    for (let index = 0; index < this.piles.length; index++) {
+      const pile = this.piles[index];
+      const card = pile.find(card => card.id === cardId);
+
+      if (card) {
+        const indexOfCard = pile.indexOf(card);
+        removedCard = pile.splice(indexOfCard, 1)[0];
+        break;
       }
-    });
+    }
 
     //add the removed card to destination pile
     const destinationPile = this.piles[destinationPileNumber];
     destinationPile.push(removedCard);
 
     //return both the source pile and the destination pile
-    return destinationPile;
+    // return destinationPile;
   }
 }
 

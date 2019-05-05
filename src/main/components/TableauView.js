@@ -25,6 +25,7 @@ const TableauView = function() {
 
   const dragStart = event => {
     event.dataTransfer.setData("id", event.target.id);
+    console.log(event.target.id);
   };
 
   const dragOver = function(event) {
