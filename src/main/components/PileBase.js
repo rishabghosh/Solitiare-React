@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "./Card";
 import "../styles/Pile.css";
+import tableau from "../models/tableau";
 
 /**
  * it takes a card count and returns a array of Card component
@@ -8,8 +9,9 @@ import "../styles/Pile.css";
  * if card count and count matches its a topcard
  *
  */
+let indexOfWastePile = 0;
 
-const getCards = function({ wastePile, indexOfWastePile, cardCount }) {
+const getCards = function({ wastePile, cardCount }) {
   const cards = [];
   for (let count = 1; count <= cardCount; count++) {
     const overlap = !(count === 1);
@@ -23,6 +25,7 @@ const getCards = function({ wastePile, indexOfWastePile, cardCount }) {
 
     cards.push(<Card {...cardProps} />);
     indexOfWastePile++;
+    console.log("index of waste pile is ", indexOfWastePile)
   }
   return cards;
 };
@@ -39,18 +42,7 @@ const Pile = function(props) {
   };
   const [cards, setCards] = useState(getCards(getCardsProps));
 
-  const dragDrop = function(event) {
-    const cardPropsData = JSON.parse(event.dataTransfer.getData("card-props"));
-    const newCards = [...cards];
-    newCards.push(<Card {...cardPropsData} overlap={true} />);
-    setCards(newCards);
-  };
-
-  return (
-    <div className="pile" onDrop={dragDrop}>
-      {cards}
-    </div>
-  );
+  return <div className="pile">{cards}</div>;
 };
 
 const PileBase = function(props) {
