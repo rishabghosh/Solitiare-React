@@ -1,5 +1,3 @@
-import deck from "./deck";
-
 /**
  * Tableau should get a wastePile from outside
  * basically deck.getWastePile()
@@ -14,12 +12,11 @@ class Tableau {
   }
 
   _createInitialPiles() {
+    const wastePileClone = [...this.wastePile];
     const piles = [];
-    let mean = 1;
-    for (let count = 0; count < 7; count++) {
-      const cards = this.wastePile.slice(count, count + mean);
+    for (let count = 1; count <= 7; count++) {
+      const cards = wastePileClone.splice(0, count);
       piles.push(cards);
-      mean++;
     }
     return piles;
   }
@@ -37,5 +34,4 @@ class Tableau {
   }
 }
 
-const tableau = new Tableau(deck.getWastePile());
-export default tableau;
+export default Tableau;

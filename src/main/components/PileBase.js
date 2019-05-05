@@ -9,23 +9,17 @@ import tableau from "../models/tableau";
  * if card count and count matches its a topcard
  *
  */
-let indexOfWastePile = 0;
 
-const getCards = function({ wastePile, cardCount }) {
+const getCards = function(pile) {
+  const cardCount = pile.length;
   const cards = [];
-  for (let count = 1; count <= cardCount; count++) {
-    const overlap = !(count === 1);
-    const isTopCard = count === cardCount;
 
-    const cardProps = {
-      ...wastePile[indexOfWastePile],
-      overlap,
-      isTopCard
-    };
-
+  for (let index = 0; index < cardCount; index++) {
+    const overlap = !(index === 0);
+    const isTopCard = index === cardCount;
+    const cardInfo = pile[index];
+    const cardProps = { ...cardInfo, overlap, isTopCard };
     cards.push(<Card {...cardProps} />);
-    indexOfWastePile++;
-    console.log("index of waste pile is ", indexOfWastePile)
   }
   return cards;
 };
@@ -35,18 +29,11 @@ const Base = function() {
 };
 
 const Pile = function(props) {
-  const getCardsProps = {
-    wastePile: props.wastePile,
-    indexOfWastePile: props.indexOfWastePile,
-    cardCount: props.count
-  };
-  const [cards, setCards] = useState(getCards(getCardsProps));
-
-  return <div className="pile">{cards}</div>;
+  return <div className="pile">{getCards(props.pile)}</div>;
 };
 
 const PileBase = function(props) {
-  const id = "Pile" + props.count;
+  const id = "pile" + props.count;
   return (
     <div className="pile-base" id={id}>
       <Base />
