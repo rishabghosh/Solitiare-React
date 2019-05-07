@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CardView from "./CardView";
 import "../styles/Pile.css";
 
@@ -27,15 +27,14 @@ const BaseView = function() {
   return <div className="base" />;
 };
 
-const PileView = function(props) {
-  const handleDrop = function(event) {
-    const targetPileId = +props.count - 1;
-    props.dragDrop(targetPileId, null, event);
+const PileView = function({ targetPileId, dragDrop, pile }) {
+  const handleDrop = event => {
+    dragDrop(targetPileId, null, event);
   };
 
   return (
     <div className="pile" onDrop={handleDrop}>
-      {getCards(props.pile)}
+      {getCards(pile)}
     </div>
   );
 };

@@ -36,7 +36,8 @@ class Tableau {
   }
 
   addCard(card, destinationPileNumber) {
-    const destinationPile = this.piles[destinationPileNumber];
+    const index = destinationPileNumber - 1;
+    const destinationPile = this.piles[index];
     destinationPile.push(card);
   }
 

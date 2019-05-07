@@ -3,7 +3,6 @@ import deck from "../models/deck";
 import CardView from "./CardView";
 import "../styles/Card.css";
 import "../styles/Pile.css";
-import tableau from "../models/tableau";
 
 const StackView = function() {
   const stackView = deck.getStack();
@@ -66,8 +65,8 @@ const OpenStackView = function(props) {
  */
 
 const FoundationView = function(props) {
-  const topCard = props.cards[0];
-  console.log("cards inside foundation view ", props.cards);
+  const topCard = props.cards[props.cards.length - 1];
+
   const handleDrop = function(event) {
     props.dragDrop(null, props.count, event);
   };

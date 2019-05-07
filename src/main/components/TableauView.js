@@ -1,35 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import PileBaseView from "./PileBaseView";
 
+//[AllPilesView]  - rename pile to pilebase
+//can AllPilesView be a js function rater that a component?
+
 const AllPilesView = function(props) {
-  const pileViews = [];
+  const { dragDrop, pilebases } = props;
 
-  for (let index = 0; index < props.pilebases.length; index++) {
-    const pile = props.pilebases[index];
-
-    const pileBaseProps = {
-      "data-test": "component-pile-base",
-      dragDrop: props.dragDrop,
-      count: index + 1,
-      pile
-    };
-    pileViews.push(<PileBaseView {...pileBaseProps} />);
-  }
-
-  return pileViews;
+  return pilebases.map((pile, index) => {
+    const pileBaseProps = { targetPileId: index + 1, dragDrop, pile };
+    return <PileBaseView {...pileBaseProps} />;
+  });
 };
 
-const TableauView = function(props) {
+/**
+ * Component [TableauView]
+ * @param {*} props :- should contain state [pilebases] and function [dragDrop]
+ */
 
+const TableauView = function(props) {
   const dragStart = event => {
     event.dataTransfer.setData("id", event.target.id);
   };
 
-  const dragOver = function(event) {
+  const dragOver = event => {
     event.preventDefault();
   };
-
-
 
   return (
     <div
@@ -38,7 +34,7 @@ const TableauView = function(props) {
       onDragStart={dragStart}
       onDragOver={dragOver}
     >
-      <AllPilesView dragDrop={props.dragDrop} pilebases={props.pilebases} />
+      <AllPilesView {...props} />
     </div>
   );
 };
