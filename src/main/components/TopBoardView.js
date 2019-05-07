@@ -3,6 +3,7 @@ import deck from "../models/deck";
 import CardView from "./CardView";
 import "../styles/Card.css";
 import "../styles/Pile.css";
+import tableau from "../models/tableau";
 
 const StackView = function() {
   const stackView = deck.getStack();
@@ -48,29 +49,88 @@ const BaseView = function() {
 };
 
 const OpenStackView = function(props) {
-  return <div className="open-stack">{props.cards}</div>;
-};
+  console.log("in open stack view", props);
 
-const FoundationView = function(props) {
   return (
-    <div>
-      <BaseView />
-      <OpenStackView {...props} />
+    <div className="open-stack">
+      <CardView {...props.topCard} isTopCard={true} />
     </div>
   );
 };
 
-const TopBoardView = function() {
+/**
+ * when dropped on a foundation
+ * the card should get transfered
+ * calls props.dragDrop with its count or id and event
+ *
+ */
+
+const FoundationView = function(props) {
+  const topCard = props.cards[0];
+  console.log("cards inside foundation view ", props.cards);
+  const handleDrop = function(event) {
+    props.dragDrop(null, props.count, event);
+  };
+
+  const style = {
+    background: "white"
+  };
+
+  const dragOver = function(event) {
+    event.preventDefault();
+  };
+
+  console.log(topCard);
+  if (topCard) {
+    return (
+      <div
+        className="foundation"
+        onDrop={handleDrop}
+        style={style}
+        onDragOver={dragOver}
+      >
+        <OpenStackView topCard={topCard} />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="foundation"
+      onDrop={handleDrop}
+      style={style}
+      onDragOver={dragOver}
+    >
+      <BaseView />
+    </div>
+  );
+};
+
+/**
+ * each foundation will get a count
+ * starting from 0 to 3
+ */
+const createFoundationsView = function(dragDrop, foundations) {
+  const foundationComponents = [];
+  console.log("should render");
+  for (let count = 1; count <= foundations.length; count++) {
+    console.log(foundations[count - 1].cards); //cards of that foundation
+    const cards = foundations[count - 1].cards;
+    const foundationProps = { count, dragDrop, cards };
+    foundationComponents.push(<FoundationView {...foundationProps} />);
+  }
+  console.log("------------");
+  return foundationComponents;
+};
+
+const TopBoardView = function(props) {
   return (
     <div data-test="component-top-board" className="top-container">
       <div data-test="display-left" className="top-left-container">
         <StackView />
       </div>
       <div data-test="display-right" className="top-right-container">
-        <FoundationView />
-        <FoundationView />
-        <FoundationView />
-        <FoundationView />
+        {createFoundationsView(props.dragDrop, props.foundations)}
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ const BaseView = function() {
 const PileView = function(props) {
   const handleDrop = function(event) {
     const targetPileId = +props.count - 1;
-    props.dragDrop(targetPileId, event);
+    props.dragDrop(targetPileId, null, event);
   };
 
   return (

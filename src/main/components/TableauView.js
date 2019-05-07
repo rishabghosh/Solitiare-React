@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PileBaseView from "./PileBaseView";
-import tableau from "../models/tableau";
 
 const AllPilesView = function(props) {
   const pileViews = [];
@@ -20,8 +19,7 @@ const AllPilesView = function(props) {
   return pileViews;
 };
 
-const TableauView = function() {
-  const [pilebases, setPilebases] = useState(tableau.getPiles());
+const TableauView = function(props) {
 
   const dragStart = event => {
     event.dataTransfer.setData("id", event.target.id);
@@ -31,11 +29,7 @@ const TableauView = function() {
     event.preventDefault();
   };
 
-  const dragDrop = function(targetPileId, event) {
-    const cardId = event.dataTransfer.getData("id");
-    tableau.moveCard(+cardId, targetPileId);
-    setPilebases(tableau.getPiles());
-  };
+
 
   return (
     <div
@@ -44,7 +38,7 @@ const TableauView = function() {
       onDragStart={dragStart}
       onDragOver={dragOver}
     >
-      <AllPilesView dragDrop={dragDrop} pilebases={pilebases} />
+      <AllPilesView dragDrop={props.dragDrop} pilebases={props.pilebases} />
     </div>
   );
 };
