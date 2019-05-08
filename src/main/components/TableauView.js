@@ -21,6 +21,7 @@ const AllPilesView = function(props) {
 const TableauView = function(props) {
   const dragStart = event => {
     event.dataTransfer.setData("id", event.target.id);
+    event.dataTransfer.setData("text", "tableau");
   };
 
   const dragOver = event => {

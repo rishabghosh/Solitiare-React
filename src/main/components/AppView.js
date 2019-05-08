@@ -6,26 +6,44 @@ import "../styles/Pile.css";
 import tableau from "../models/tableau";
 import game from "../models/Game";
 
+//here i need game.stack in a state
+//if stack card id is provided remove that card from the stack
+//and in foundation id it should get added
+
 const AppView = function() {
   const [pilebases, setPilebases] = useState(tableau.getPiles());
   const [foundations, setFoundations] = useState(game.getFoundations());
+  const [stack, setStack] = useState(game.getStack());
 
   const dragDrop = function(targetPileId, foundationId, event) {
-    console.log("target pile id is ", targetPileId);
     const cardId = event.dataTransfer.getData("id");
+    const identification = event.dataTransfer.getData("text");
+    console.log("****identification is -", identification);
+    console.log("++++cardid is ", cardId);
 
     if (targetPileId) tableau.moveCard(+cardId, targetPileId);
 
     if (foundationId) {
-      const removedCard = tableau.removeCard(+cardId);
+      let removedCard;
+
+      if (identification === "stack") {
+        removedCard = game.removeCardFromStack(+cardId);
+        console.log("removed card from stack ", removedCard);
+      }
+
+      if (identification === "tableau") {
+        removedCard = tableau.removeCard(+cardId);
+      }
+
       const newFoundations = game.addToFoundation(foundationId, removedCard);
       setFoundations(newFoundations);
     }
 
+    setStack(game.getStack());
     setPilebases(tableau.getPiles());
   };
 
-  const topBoardViewProps = { dragDrop, foundations };
+  const topBoardViewProps = { dragDrop, foundations, stack };
   const tableauViewProps = { dragDrop, pilebases };
 
   return (

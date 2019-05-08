@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import deck from "../models/deck";
 import CardView from "./CardView";
 import "../styles/Card.css";
 import "../styles/Pile.css";
 
-const StackView = function() {
-  const stack = deck.getStack();
-
+const StackView = function({ stack }) {
   const [stackIndex, setStackIndex] = useState(0);
   const [currentStackCard, setCurrentStackCard] = useState(stack[stackIndex]);
   const [visibility, setVisibility] = useState(false);
@@ -23,12 +20,24 @@ const StackView = function() {
   };
 
   const cardProps = {
-    unicode: currentStackCard.unicode,
+    ...currentStackCard,
     overlap: false,
     isTopCard: true
   };
 
   const style = { display: visibility ? "block" : "none" };
+
+  const dragStart = event => {
+    event.dataTransfer.setData("id", event.target.id);
+    event.dataTransfer.setData("text", "stack");
+
+    console.log("dragging start in stack");
+  };
+
+  const dragOver = event => {
+    event.preventDefault();
+    console.log("dragging over on stack");
+  };
 
   return (
     <div className="stack">
@@ -36,7 +45,7 @@ const StackView = function() {
         <CardView draggable={"false"} />
       </div>
 
-      <div style={style}>
+      <div style={style} onDragStart={dragStart} onDragOver={dragOver}>
         <CardView {...cardProps} />
       </div>
     </div>
@@ -106,12 +115,12 @@ const FoundationView = function(props) {
  * each foundation will get a count
  * starting from 0 to 3
  */
-const createFoundationsView = function(dragDrop, foundations) {
+const createFoundationsView = function(dragDrop, foundations, stackCardId) {
   const foundationComponents = [];
 
   for (let count = 1; count <= foundations.length; count++) {
     const cards = foundations[count - 1].cards;
-    const foundationProps = { count, dragDrop, cards };
+    const foundationProps = { count, dragDrop, cards, stackCardId };
     foundationComponents.push(<FoundationView {...foundationProps} />);
   }
   return foundationComponents;
@@ -121,10 +130,14 @@ const TopBoardView = function(props) {
   return (
     <div data-test="component-top-board" className="top-container">
       <div data-test="display-left" className="top-left-container">
-        <StackView />
+        <StackView {...props} />
       </div>
       <div data-test="display-right" className="top-right-container">
-        {createFoundationsView(props.dragDrop, props.foundations)}
+        {createFoundationsView(
+          props.dragDrop,
+          props.foundations,
+          props.stackCardId
+        )}
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import Foundation from "./foundation";
+import deck from "./deck";
 
 class Game {
   constructor() {
     this.foundations = this._createFoundations();
+    this.stack = deck.getStack();
   }
 
   _createFoundations() {
@@ -24,6 +26,20 @@ class Game {
 
   getFoundations() {
     return JSON.parse(JSON.stringify(this.foundations));
+  }
+
+  getStack() {
+    return [...this.stack];
+  }
+
+  removeCardFromStack(cardId) {
+    let removedCard;
+    this.stack.forEach((card, index) => {
+      console.log("comparing ", cardId, card.id);
+      if (cardId === card.id) removedCard = this.stack.splice(index, 1)[0];
+    });
+    console.log("stack after removing card \n", this.stack, "\n------");
+    return removedCard;
   }
 }
 

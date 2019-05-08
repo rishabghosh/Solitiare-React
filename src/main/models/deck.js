@@ -16,7 +16,9 @@ class Deck {
 
     const shuffledCards = shuffle(cards);
     const wastePile = shuffledCards.slice(0, 28);
-    const stack = shuffledCards.slice(28);
+    const stack = shuffledCards.slice(48);
+    console.log("deck stack is ", stack);
+    console.log("-------------")
     return new Deck(cards, wastePile, stack);
   }
 
@@ -30,7 +32,7 @@ class Deck {
   }
 
   getStack() {
-    return this.stack;
+    return [...this.stack];
   }
 }
 
