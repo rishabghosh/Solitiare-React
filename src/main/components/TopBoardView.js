@@ -5,25 +5,25 @@ import "../styles/Card.css";
 import "../styles/Pile.css";
 
 const StackView = function() {
-  const stackView = deck.getStack();
+  const stack = deck.getStack();
 
   const [stackIndex, setStackIndex] = useState(0);
-  const [viewStackCard, setViewStackCard] = useState(stackView[stackIndex]);
+  const [currentStackCard, setCurrentStackCard] = useState(stack[stackIndex]);
   const [visibility, setVisibility] = useState(false);
 
   const handleCardChange = function() {
-    if (!stackView[stackIndex]) {
+    if (!stack[stackIndex]) {
       setVisibility(false);
       setStackIndex(0);
       return;
     }
     setVisibility(true);
-    setViewStackCard(stackView[stackIndex]);
+    setCurrentStackCard(stack[stackIndex]);
     setStackIndex(stackIndex + 1);
   };
 
   const cardProps = {
-    unicode: viewStackCard.unicode,
+    unicode: currentStackCard.unicode,
     overlap: false,
     isTopCard: true
   };
@@ -33,7 +33,7 @@ const StackView = function() {
   return (
     <div className="stack">
       <div onClick={handleCardChange}>
-        <CardView />
+        <CardView draggable={"false"} />
       </div>
 
       <div style={style}>
@@ -48,8 +48,6 @@ const BaseView = function() {
 };
 
 const OpenStackView = function(props) {
-  console.log("in open stack view", props);
-
   return (
     <div className="open-stack">
       <CardView {...props.topCard} isTopCard={true} />
@@ -79,7 +77,6 @@ const FoundationView = function(props) {
     event.preventDefault();
   };
 
-  console.log(topCard);
   if (topCard) {
     return (
       <div
@@ -111,14 +108,12 @@ const FoundationView = function(props) {
  */
 const createFoundationsView = function(dragDrop, foundations) {
   const foundationComponents = [];
-  console.log("should render");
+
   for (let count = 1; count <= foundations.length; count++) {
-    console.log(foundations[count - 1].cards); //cards of that foundation
     const cards = foundations[count - 1].cards;
     const foundationProps = { count, dragDrop, cards };
     foundationComponents.push(<FoundationView {...foundationProps} />);
   }
-  console.log("------------");
   return foundationComponents;
 };
 

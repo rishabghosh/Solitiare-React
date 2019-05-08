@@ -27,9 +27,10 @@ const CardView = function(props) {
    */
 
   const style = { color: props.color };
-
+  const draggable = props.draggable || "true";
+  
   return (
-    <div className={className} draggable="true" id={props.id}>
+    <div className={className} draggable={draggable} id={props.id}>
       <div className="card-body" style={style}>
         {unicode}
       </div>
