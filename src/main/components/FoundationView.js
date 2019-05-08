@@ -26,14 +26,14 @@ const FoundationView = function({ cards, dragDrop, count }) {
     event.preventDefault();
   };
 
-  const chooseView = function({ topCard }) {
+  const chooseView = function(topCard) {
     if (topCard) return <OpenStackView topCard={topCard} />;
     return <BaseView />;
   };
 
   return (
     <div className="foundation" onDrop={handleDrop} onDragOver={dragOver}>
-      {chooseView({ topCard })}
+      {chooseView(topCard)}
     </div>
   );
 };

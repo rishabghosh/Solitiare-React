@@ -18,17 +18,19 @@ const AppView = function() {
   const dragDrop = function(targetPileId, foundationId, event) {
     const cardId = event.dataTransfer.getData("id");
     const identification = event.dataTransfer.getData("text");
-    console.log("****identification is -", identification);
-    console.log("++++cardid is ", cardId);
 
-    if (targetPileId) tableau.moveCard(+cardId, targetPileId);
+    if (targetPileId) {
+      console.log("about to call tableau.mmc");
+      tableau.moveMultipleCards(+cardId, targetPileId);
+
+      // tableau.moveCard(+cardId, targetPileId);
+    }
 
     if (foundationId) {
       let removedCard;
 
       if (identification === "stack") {
         removedCard = game.removeCardFromStack(+cardId);
-        console.log("removed card from stack ", removedCard);
       }
 
       if (identification === "tableau") {

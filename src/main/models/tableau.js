@@ -57,9 +57,39 @@ class Tableau {
     return removedCard;
   }
 
+  _searchPile(cardId) {
+    for (let index = 0; index < this.piles.length; index++) {
+      const pile = this.piles[index];
+      const card = pile.find(card => card.id === cardId);
+      if (card) return pile;
+    }
+  }
+
   moveCard(cardId, destinationPileNumber) {
     const removedCard = this.removeCard(cardId);
     this.addCard(removedCard, destinationPileNumber);
+  }
+
+  moveMultipleCards(cardId, destinationPileNumber) {
+    const sourcePile = this._searchPile(cardId);
+    console.log("sourcePile is ", sourcePile);
+
+    const card = this.getCard(cardId);
+    console.log("card is", card);
+
+    const indexOfCard = sourcePile.indexOf(card);
+    const lastIndex = sourcePile.length - 1;
+
+    //get all cards from the index to the last
+    const removedCards =
+      sourcePile.length === 1
+        ? sourcePile.splice(0, 1)
+        : sourcePile.splice(indexOfCard, lastIndex);
+
+    console.log("removed cards are ", removedCards);
+    removedCards.forEach(card => {
+      this.addCard(card, destinationPileNumber);
+    });
   }
 }
 
