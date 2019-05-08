@@ -1,10 +1,26 @@
 import Foundation from "./foundation";
 import deck from "./deck";
+import tableau from "./tableau";
+
+//removeCards, getPiles, getMultipleCards
 
 class Game {
   constructor() {
     this.foundations = this._createFoundations();
     this.stack = deck.getStack();
+    this.piles = tableau.getPiles();
+  }
+
+  getPiles() {
+    return JSON.parse(JSON.stringify(this.piles));
+  }
+
+  moveCardsInTableau(cardId, targetPileId) {
+    tableau.moveCards(cardId, targetPileId);
+  }
+
+  removeCardFromTableau(cardId) {
+    return tableau.removeCard(cardId);
   }
 
   _createFoundations() {
@@ -19,8 +35,8 @@ class Game {
 
   addToFoundation(foundationIdNumber, card) {
     const index = foundationIdNumber - 1;
-    const requiredFoundation = this.foundations[index];
-    requiredFoundation.addCard(card);
+    const foundation = this.foundations[index];
+    foundation.addCard(card);
     return [...this.foundations];
   }
 
@@ -35,10 +51,8 @@ class Game {
   removeCardFromStack(cardId) {
     let removedCard;
     this.stack.forEach((card, index) => {
-      console.log("comparing ", cardId, card.id);
       if (cardId === card.id) removedCard = this.stack.splice(index, 1)[0];
     });
-    console.log("stack after removing card \n", this.stack, "\n------");
     return removedCard;
   }
 }

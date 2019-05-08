@@ -3,7 +3,6 @@ import TableauView from "./TableauView";
 import TopBoardView from "./TopBoardView";
 import "../styles/App.css";
 import "../styles/Pile.css";
-import tableau from "../models/tableau";
 import game from "../models/Game";
 
 const toNumber = convertable => +convertable;
@@ -11,11 +10,11 @@ const getEventData = (event, data) => event.dataTransfer.getData(data);
 
 const getRemovedCards = function(identification, cardId) {
   if (identification === "stack") return game.removeCardFromStack(cardId);
-  if (identification === "tableau") return tableau.removeCard(cardId);
+  if (identification === "tableau") return game.removeCardFromTableau(cardId);
 };
 
 const AppView = function() {
-  const [pilebases, setPilebases] = useState(tableau.getPiles());
+  const [pilebases, setPilebases] = useState(game.getPiles());
   const [foundations, setFoundations] = useState(game.getFoundations());
   const [stack, setStack] = useState(game.getStack());
 
@@ -23,7 +22,7 @@ const AppView = function() {
     const cardId = toNumber(getEventData(event, "id"));
     const identification = getEventData(event, "text");
 
-    if (targetPileId) tableau.moveMultipleCards(cardId, targetPileId);
+    if (targetPileId) game.moveCardsInTableau(cardId, targetPileId);
 
     if (foundationId) {
       const removedCard = getRemovedCards(identification, cardId);
@@ -32,7 +31,7 @@ const AppView = function() {
     }
 
     setStack(game.getStack());
-    setPilebases(tableau.getPiles());
+    setPilebases(game.getPiles());
   };
 
   const topBoardViewProps = { dragDrop, foundations, stack };

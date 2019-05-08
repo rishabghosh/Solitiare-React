@@ -28,7 +28,7 @@ class Tableau {
   }
 
   getPiles() {
-    return JSON.parse(JSON.stringify(this.piles));
+    return this.piles;
   }
 
   getWastePile() {
@@ -65,18 +65,9 @@ class Tableau {
     }
   }
 
-  moveCard(cardId, destinationPileNumber) {
-    const removedCard = this.removeCard(cardId);
-    this.addCard(removedCard, destinationPileNumber);
-  }
-
-  moveMultipleCards(cardId, destinationPileNumber) {
+  moveCards(cardId, destinationPileNumber) {
     const sourcePile = this._searchPile(cardId);
-    console.log("sourcePile is ", sourcePile);
-
     const card = this.getCard(cardId);
-    console.log("card is", card);
-
     const indexOfCard = sourcePile.indexOf(card);
     const lastIndex = sourcePile.length - 1;
 
@@ -86,7 +77,6 @@ class Tableau {
         ? sourcePile.splice(0, 1)
         : sourcePile.splice(indexOfCard, lastIndex);
 
-    console.log("removed cards are ", removedCards);
     removedCards.forEach(card => {
       this.addCard(card, destinationPileNumber);
     });
