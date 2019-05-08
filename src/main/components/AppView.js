@@ -6,9 +6,13 @@ import "../styles/Pile.css";
 import tableau from "../models/tableau";
 import game from "../models/Game";
 
-//here i need game.stack in a state
-//if stack card id is provided remove that card from the stack
-//and in foundation id it should get added
+const toNumber = convertable => +convertable;
+const getEventData = (event, data) => event.dataTransfer.getData(data);
+
+const getRemovedCards = function(identification, cardId) {
+  if (identification === "stack") return game.removeCardFromStack(cardId);
+  if (identification === "tableau") return tableau.removeCard(cardId);
+};
 
 const AppView = function() {
   const [pilebases, setPilebases] = useState(tableau.getPiles());
@@ -16,27 +20,13 @@ const AppView = function() {
   const [stack, setStack] = useState(game.getStack());
 
   const dragDrop = function(targetPileId, foundationId, event) {
-    const cardId = event.dataTransfer.getData("id");
-    const identification = event.dataTransfer.getData("text");
+    const cardId = toNumber(getEventData(event, "id"));
+    const identification = getEventData(event, "text");
 
-    if (targetPileId) {
-      console.log("about to call tableau.mmc");
-      tableau.moveMultipleCards(+cardId, targetPileId);
-
-      // tableau.moveCard(+cardId, targetPileId);
-    }
+    if (targetPileId) tableau.moveMultipleCards(cardId, targetPileId);
 
     if (foundationId) {
-      let removedCard;
-
-      if (identification === "stack") {
-        removedCard = game.removeCardFromStack(+cardId);
-      }
-
-      if (identification === "tableau") {
-        removedCard = tableau.removeCard(+cardId);
-      }
-
+      const removedCard = getRemovedCards(identification, cardId);
       const newFoundations = game.addToFoundation(foundationId, removedCard);
       setFoundations(newFoundations);
     }
